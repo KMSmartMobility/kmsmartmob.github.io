@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Database Verkeersstudies – KM Smart Mobility</title>
+<meta name="description" content="Open database met verkeersstudies over Suriname.">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#033a73; --gray:#a6adb2; --green:#4cb157; --red:#e30613;
+  --bg:#f5f7fa; --surface:#fff; --ink:#122235; --muted:#566676; --line:#dbe1e7; --head-c:#033a73;
+  --head:"Sora","Trebuchet MS",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1827;--surface:#10263d;--ink:#e9eff5;--muted:#9fb1c1;--line:#22405c;--head-c:#8cc0f5;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a1827;--surface:#10263d;--ink:#e9eff5;--muted:#9fb1c1;--line:#22405c;--head-c:#8cc0f5;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:5rem;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--body)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.wrap{max-width:70rem;margin:0 auto;padding:0 1.25rem}
+h1,h2,h3{font-family:var(--head);line-height:1.15;margin:0;letter-spacing:-.01em}
+h2{color:var(--head-c);font-size:clamp(1.7rem,3.8vw,2.5rem);margin-bottom:.8rem}
+.lead{color:var(--muted);max-width:42rem;margin:0 0 2.2rem}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:#fff;border-bottom:3px solid var(--navy)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:4rem;flex-wrap:wrap;padding-top:.4rem;padding-bottom:.4rem}
+.logo img{height:2.6rem;width:auto;display:block}
+nav{display:flex;align-items:center;gap:1.3rem;flex-wrap:wrap}
+nav a{text-decoration:none;font-weight:600;color:#33465a}
+nav a:hover{color:var(--navy)}
+.lang{display:flex;border:2px solid var(--navy);border-radius:.4rem;overflow:hidden}
+.lang button{font:600 .85rem var(--body);padding:.3rem .65rem;border:0;background:#fff;color:var(--navy);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--navy);color:#fff}
+
+.hero{background:var(--navy);color:#fff;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:2rem;align-items:center;padding-top:clamp(2.5rem,6vw,5rem);padding-bottom:clamp(2.5rem,6vw,5rem)}
+.hero h1{font-size:clamp(2.1rem,5.4vw,3.8rem);font-weight:700}
+.hero p{font-size:1.15rem;color:#d3e0ee;margin:1.2rem 0 1.8rem;max-width:34rem}
+.hero .mark{display:block;justify-self:center;width:auto;height:auto;max-height:24rem;max-width:100%;background:#fff;border-radius:1.2rem;padding:1.2rem}
+.btns{display:flex;gap:.8rem;flex-wrap:wrap}
+.btn{display:inline-block;padding:.8rem 1.3rem;border-radius:.4rem;font-weight:600;text-decoration:none;border:2px solid var(--green)}
+.btn.main{background:var(--green);color:#052a14}
+.btn.main:hover{background:#63c76e}
+.btn.ghost{color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.12)}
+@media (max-width:48rem){.hero .wrap{grid-template-columns:1fr}.hero .mark{max-height:14rem}}
+
+section{padding:clamp(3rem,7vw,5rem) 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}
+.card{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--navy);border-radius:.5rem;padding:1.5rem}
+.card:nth-child(2){border-top-color:var(--green)}
+.card:nth-child(3){border-top-color:var(--gray)}
+.card:nth-child(4){border-top-color:var(--red)}
+.card svg{width:2.8rem;height:2.8rem;stroke:var(--head-c);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-bottom:.8rem}
+.card h3{font-size:1.25rem;color:var(--head-c);margin-bottom:.5rem}
+.card p{margin:0 0 1rem;color:var(--muted)}
+.card ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:.4rem}
+.card li{background:var(--bg);border:1px solid var(--line);padding:.2rem .7rem;border-radius:2rem;font-size:.9rem}
+@media (max-width:46rem){.grid{grid-template-columns:1fr}}
+
+.data{background:var(--surface);border-bottom:1px solid var(--line)}
+.pagehead{background:#033a73;color:#fff}
+.pagehead .wrap{padding-top:clamp(2rem,5vw,3.5rem);padding-bottom:clamp(2rem,5vw,3.5rem)}
+.pagehead h1{font-size:clamp(1.8rem,4.5vw,3rem)}
+.pagehead p{color:#d3e0ee;max-width:42rem;margin:.8rem 0 0}
+[hidden]{display:none!important}
+nav a[aria-current="page"]{color:var(--navy);box-shadow:0 3px 0 var(--green)}
+.frame{border:2px solid var(--navy);border-radius:.5rem;overflow:hidden;background:#fff}
+.frame iframe{display:block;width:100%;height:max(46rem,80vh);border:0}
+.note{margin:.8rem 0 0;color:var(--muted);font-size:.95rem}
+.note a{color:var(--head-c);font-weight:600}
+
+.about{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.about p{margin:0 0 1rem;max-width:34rem}
+.vision{list-style:none;margin:0;padding:0}
+.vision li{padding:.8rem 0 .8rem 1.8rem;border-bottom:1px solid var(--line);position:relative}
+.vision li::before{content:"";position:absolute;left:.1rem;top:1.25rem;width:.75rem;height:.75rem;background:var(--green);transform:rotate(45deg)}
+@media (max-width:48rem){.about{grid-template-columns:1fr;gap:2rem}}
+
+.cta{background:var(--navy);color:#fff}
+.cta .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:2.5rem;align-items:center}
+.cta h2{color:#fff;margin:0}
+.cta address{font-style:normal;color:#d3e0ee;line-height:1.8}
+.cta address a{color:#8be09a;font-weight:600}
+@media (max-width:48rem){.cta .wrap{grid-template-columns:1fr}}
+footer{padding:1.4rem 0;color:var(--muted);font-size:.92rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="../" aria-label="KM Smart Mobility"><img src="../logo.png" alt="KM Smart Mobility"></a>
+    <nav aria-label="Menu">
+      <a href="../#diensten" data-en="Services">Diensten</a>
+      <a href="../#over-ons" data-en="About us">Over ons</a>
+      <a href="#contact" data-en="Contact">Contact</a>
+      <a href="./" aria-current="page" data-en="Database">Database</a>
+      <div class="lang" role="group" aria-label="Taal / Language"><button data-lang="nl" aria-pressed="true">NL</button><button data-lang="en" aria-pressed="false">EN</button></div>
+    </nav>
+  </div>
+</header>
+<main id="top">
+  <div class="pagehead"><div class="wrap">
+    <h1 data-en="Traffic Studies Database">Database Verkeersstudies</h1>
+    <p data-en="An open collection of traffic studies about Suriname, free to search, filter and download. The database is continuously growing.">Een open verzameling van verkeersstudies over Suriname, gratis te doorzoeken, filteren en downloaden. De database wordt voortdurend aangevuld.</p>
+  </div></div>
+  <section class="data">
+    <div class="wrap">
+      <div class="frame"><iframe src="https://surajkm94.github.io/verkeersstudies/" title="Database Verkeersstudies Suriname" loading="lazy"></iframe></div>
+      <p class="note"><span data-en="Does the database not load?">Laadt de database niet?</span> <a href="https://surajkm94.github.io/verkeersstudies/" target="_blank" rel="noopener" data-en="Open it in a new tab">Open hem in een nieuw tabblad</a>.</p>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="wrap">
+      <h2 data-en="Does this vision appeal to you? Let’s work together.">Spreekt deze visie u ook aan? Laten we samenwerken.</h2>
+      <address>
+        KM Smart Mobility N.V.<br>
+        Sitaramstraat 37, Paramaribo, Suriname<br>
+        <a href="mailto:info@kmsmartmob.com">info@kmsmartmob.com</a>
+      </address>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">© <span id="y">2026</span> KM Smart Mobility N.V.</div></footer>
+<script>
+(function(){
+var els=[].slice.call(document.querySelectorAll("[data-en]"));
+els.forEach(function(e){e.setAttribute("data-nl",e.innerHTML)});
+var bs=[].slice.call(document.querySelectorAll("[data-lang]"));
+function set(l){document.documentElement.lang=l;
+els.forEach(function(e){e.innerHTML=e.getAttribute("data-"+l)});
+bs.forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-lang")===l))});
+try{localStorage.setItem("lang",l)}catch(x){}}
+bs.forEach(function(b){b.onclick=function(){set(b.getAttribute("data-lang"))}});
+var s=null;try{s=localStorage.getItem("lang")}catch(x){}
+if(s==="en")set("en");
+document.getElementById("y").textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
