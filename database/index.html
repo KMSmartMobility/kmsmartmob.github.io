@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Database Verkeersstudies – KM Smart Mobility</title>
-<meta name="description" content="Open database met verkeersstudies over Suriname.">
+<meta name="description" content="Open kennisbank met verkeers- en vervoersstudies over Suriname.">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,8 +72,6 @@ section{padding:clamp(3rem,7vw,5rem) 0}
 .pagehead p{color:#d3e0ee;max-width:42rem;margin:.8rem 0 0}
 [hidden]{display:none!important}
 nav a[aria-current="page"]{color:var(--navy);box-shadow:0 3px 0 var(--green)}
-.frame{border:2px solid var(--navy);border-radius:.5rem;overflow:hidden;background:#fff}
-.frame iframe{display:block;width:100%;height:max(46rem,80vh);border:0}
 .note{margin:.8rem 0 0;color:var(--muted);font-size:.95rem}
 .note a{color:var(--head-c);font-weight:600}
 
@@ -92,6 +90,36 @@ nav a[aria-current="page"]{color:var(--navy);box-shadow:0 3px 0 var(--green)}
 @media (max-width:48rem){.cta .wrap{grid-template-columns:1fr}}
 footer{padding:1.4rem 0;color:var(--muted);font-size:.92rem}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* database */
+.dbapp{--card:var(--surface);--mute:var(--muted);--chip:#e8eef5;--on:var(--head-c);--onink:#fff;padding-top:clamp(1.2rem,3vw,2rem);padding-bottom:3rem}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dbapp{--chip:#1b3552;--onink:#0a1827}}
+:root[data-theme="dark"] .dbapp{--chip:#1b3552;--onink:#0a1827}
+.bar{display:flex;gap:.6rem;flex-wrap:wrap;margin:0 0 .8rem}
+.bar input[type=search]{flex:1 1 17rem;padding:.75rem .9rem;border:1px solid var(--line);border-radius:.6rem;background:var(--card);color:var(--ink);font:inherit}
+.dbapp select,.dbtn{padding:.7rem .9rem;border:1px solid var(--line);border-radius:.6rem;background:var(--card);color:var(--ink);font:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+.dbtn.pri{background:var(--on);color:var(--onink);border-color:var(--on);font-weight:600}
+details.f{background:var(--card);border:1px solid var(--line);border-radius:.6rem;margin-bottom:.5rem}
+details.f summary{padding:.65rem .9rem;cursor:pointer;font-weight:600;display:flex;justify-content:space-between}
+details.f summary span{color:var(--mute);font-weight:400}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;padding:.25rem .9rem .9rem;max-height:14rem;overflow:auto}
+.chip{border:1px solid transparent;background:var(--chip);color:var(--ink);border-radius:2rem;padding:.2rem .7rem;font:inherit;font-size:.85rem;cursor:pointer}
+.chip small{color:var(--mute)}
+.chip[aria-pressed=true]{background:var(--on);color:var(--onink)}.chip[aria-pressed=true] small{color:inherit}
+.years{display:flex;gap:.5rem;align-items:center;padding:.25rem .9rem .9rem;color:var(--mute)}
+.meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin:.9rem 0}
+.list{display:grid;gap:.8rem}
+.st{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:.6rem;padding:.9rem 1rem}
+.st h2{margin:0 0 .15rem;font-size:1.05rem;line-height:1.35}
+.st .sub{color:var(--mute);font-size:.9rem;margin:0 0 .4rem}
+.info{color:var(--mute);font-size:.88rem;display:flex;flex-wrap:wrap;gap:.25rem .9rem;margin:.25rem 0 .5rem}
+.tags{display:flex;flex-wrap:wrap;gap:.3rem;margin:.4rem 0}
+.tag{font-size:.78rem;padding:.1rem .55rem;border-radius:2rem;background:var(--chip)}
+.tag.ty{background:var(--on);color:var(--onink);font-weight:600}
+.act{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem}
+.sum{margin:.5rem 0 0;font-size:.9rem}
+.empty{text-align:center;padding:3rem 0;color:var(--mute)}
+.dbapp .note{margin-top:1.5rem}
 </style>
 </head>
 <body>
@@ -110,12 +138,15 @@ footer{padding:1.4rem 0;color:var(--muted);font-size:.92rem}
 <main id="top">
   <div class="pagehead"><div class="wrap">
     <h1 data-en="Traffic Studies Database">Database Verkeersstudies</h1>
-    <p data-en="An open collection of traffic studies about Suriname, free to search, filter and download. The database is continuously growing.">Een open verzameling van verkeersstudies over Suriname, gratis te doorzoeken, filteren en downloaden. De database wordt voortdurend aangevuld.</p>
+    <p data-en="An open knowledge base of traffic and transport studies about Suriname. Free to browse and download, and continuously growing. Titles and summaries are translated for convenience; the documents themselves are in their original language.">Open kennisbank met verkeers- en vervoersstudies over Suriname. Gratis te raadplegen en te downloaden, en voortdurend aangevuld.</p>
   </div></div>
-  <section class="data">
+  <section class="dbapp">
     <div class="wrap">
-      <div class="frame"><iframe src="https://surajkm94.github.io/verkeersstudies/" title="Database Verkeersstudies Suriname" loading="lazy"></iframe></div>
-      <p class="note"><span data-en="Does the database not load?">Laadt de database niet?</span> <a href="https://surajkm94.github.io/verkeersstudies/" target="_blank" rel="noopener" data-en="Open it in a new tab">Open hem in een nieuw tabblad</a>.</p>
+      <div class="bar"><input type="search" id="q" aria-label="Zoeken / Search"><select id="sort" aria-label="Sorteren / Sort"></select><button class="dbtn pri" id="dl"></button></div>
+      <div id="filters"></div>
+      <div class="meta"><b id="count"></b><button class="dbtn" id="reset"></button></div>
+      <div class="list" id="list"></div>
+      <p class="note" id="foot"></p>
     </div>
   </section>
 
@@ -139,11 +170,64 @@ var bs=[].slice.call(document.querySelectorAll("[data-lang]"));
 function set(l){document.documentElement.lang=l;
 els.forEach(function(e){e.innerHTML=e.getAttribute("data-"+l)});
 bs.forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-lang")===l))});
-try{localStorage.setItem("lang",l)}catch(x){}}
+try{localStorage.setItem("lang",l)}catch(x){}
+if(window.onLang)window.onLang(l)}
 bs.forEach(function(b){b.onclick=function(){set(b.getAttribute("data-lang"))}});
 var s=null;try{s=localStorage.getItem("lang")}catch(x){}
 if(s==="en")set("en");
 document.getElementById("y").textContent=new Date().getFullYear();
+})();
+</script>
+<script>(async()=>{
+let J,TG;
+try{if(window.__DATA){J=window.__DATA;TG=window.__TAGS}else{[J,TG]=await Promise.all([fetch('data.json').then(r=>r.json()),fetch('tags-en.json').then(r=>r.json())])}}catch(e){document.getElementById('list').textContent='Data kon niet geladen worden / Data could not be loaded.';return}
+const D=J.items,UPD=J.updated;
+const T={nl:{q:"Zoek op titel, auteur, onderwerp of samenvatting…",new:"Nieuwste eerst",old:"Oudste eerst",az:"Titel A–Z",dl:"Download lijst (CSV)",type:"Type",tags:"Onderwerpen",pub:"Uitgever",year:"Jaar",from:"van",to:"tot",reset:"Wis filters",n:["studie","studies"],none:"Geen studies gevonden. Pas je zoekopdracht of filters aan.",open:"Bekijk document",get:"Download",foot:'Alle bronnen zijn aangegeven. De documenten zijn niet in het bezit van KM Smart Mobility en zijn met toestemming van de auteurs beschikbaar gesteld. Documenten toevoegen of actualiseren? Mail <a href="mailto:info@kmsmartmob.com">info@kmsmartmob.com</a>.',upd:"Laatst bijgewerkt",loc:"nl-NL"},
+en:{q:"Search by title, author, topic or summary…",new:"Newest first",old:"Oldest first",az:"Title A–Z",dl:"Download list (CSV)",type:"Type",tags:"Topics",pub:"Publisher",year:"Year",from:"from",to:"to",reset:"Clear filters",n:["study","studies"],none:"No studies found. Adjust your search or filters.",open:"View document",get:"Download",foot:'All sources are credited. The documents are not owned by KM Smart Mobility and are shared with permission of the authors. Want to add or update a document? Email <a href="mailto:info@kmsmartmob.com">info@kmsmartmob.com</a>.',upd:"Last updated",loc:"en-GB"}};
+const tr={en:TG};
+let L=document.documentElement.lang==="en"?"en":"nl";
+const S={q:"",ty:new Set(),tg:new Set(),p:new Set(),y1:0,y2:9999,sort:"new"};
+const $=id=>document.getElementById(id),yr=x=>+x.d.slice(0,4);
+const lab=v=>(L==="en"&&tr.en[v])||v;
+const pick=(x,k,e)=>(L==="en"&&x[e])||x[k];
+const cnt=k=>{const m={};D.forEach(x=>x[k].forEach(v=>m[v]=(m[v]||0)+1));return Object.entries(m).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))};
+const years=[...new Set(D.map(yr))].sort((a,b)=>a-b);
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+D.forEach(x=>x._h=norm([x.t,x.te,x.st,x.se,x.a,x.s,x.ee,...x.ty,...x.tg,...x.p,...[...x.ty,...x.tg].map(v=>tr.en[v]||"")].join(" ")));
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function filtered(){const w=norm(S.q).split(/\s+/).filter(Boolean);
+ return D.filter(x=>w.every(t=>x._h.includes(t))&&(!S.ty.size||x.ty.some(v=>S.ty.has(v)))&&(!S.tg.size||x.tg.some(v=>S.tg.has(v)))&&(!S.p.size||x.p.some(v=>S.p.has(v)))&&yr(x)>=S.y1&&yr(x)<=S.y2)
+ .sort((a,b)=>S.sort==="old"?a.d.localeCompare(b.d):S.sort==="az"?a.t.localeCompare(b.t,"nl"):b.d.localeCompare(a.d))}
+function group(k,key,open){const items=cnt(key),n=S[k].size;
+ return `<details class="f"${open?" open":""} data-k="${k}"><summary>${T[L][k==="ty"?"type":k==="tg"?"tags":"pub"]}<span>${n?n+" ✓":items.length}</span></summary><div class="chips">${items.map(([v,c])=>`<button class="chip" data-k="${k}" data-v="${esc(v)}" aria-pressed="${S[k].has(v)}">${esc(lab(v))} <small>${c}</small></button>`).join("")}</div></details>`}
+function buildFilters(){const op=[...document.querySelectorAll("details.f[open]")].map(d=>d.dataset.k);
+ const yo=op.includes("y");
+ $("filters").innerHTML=group("ty","ty",op.includes("ty"))+group("tg","tg",op.includes("tg"))+group("p","p",op.includes("p"))+
+ `<details class="f"${yo?" open":""} data-k="y"><summary>${T[L].year}<span>${S.y1>0||S.y2<9999?"✓":years[0]+"–"+years.at(-1)}</span></summary><div class="years">${T[L].from} <select id="y1">${years.map(y=>`<option${y===(S.y1||years[0])?" selected":""}>${y}</option>`).join("")}</select> ${T[L].to} <select id="y2">${[...years].reverse().map(y=>`<option${y===(S.y2===9999?years.at(-1):S.y2)?" selected":""}>${y}</option>`).join("")}</select></div></details>`;
+ $("y1").onchange=e=>{S.y1=+e.target.value;S.y1===years[0]&&(S.y1=0);render()};
+ $("y2").onchange=e=>{S.y2=+e.target.value;S.y2===years.at(-1)&&(S.y2=9999);render()}}
+function render(){const t=T[L],r=filtered();
+ $("q").placeholder=t.q;$("dl").textContent="⬇ "+t.dl;$("reset").textContent=t.reset;$("foot").innerHTML=t.foot;
+ $("sort").innerHTML=[["new",t.new],["old",t.old],["az",t.az]].map(([v,l])=>`<option value="${v}"${S.sort===v?" selected":""}>${l}</option>`).join("");
+ $("count").textContent=r.length+" "+t.n[r.length===1?0:1];
+ const fmt=d=>new Date(d+"T00:00:00").toLocaleDateString(t.loc,{day:"numeric",month:"long",year:"numeric"});
+ if(UPD)$("foot").innerHTML+=`<br>${t.upd}: ${fmt(UPD)}`;
+ $("list").innerHTML=r.length?r.map(x=>`<article class="st"><h2>${esc(pick(x,"t","te"))}</h2>${x.st?`<p class="sub">${esc(pick(x,"st","se"))}</p>`:""}
+ <div class="info"><span>📅 ${fmt(x.d)}</span>${x.a?`<span>✍ ${esc(x.a)}</span>`:""}${x.p.length?`<span>🏛 ${esc(x.p.join(", "))}</span>`:""}</div>
+ <div class="tags">${x.ty.map(v=>`<span class="tag ty">${esc(lab(v))}</span>`).join("")}${x.tg.map(v=>`<span class="tag">${esc(lab(v))}</span>`).join("")}</div>
+ ${x.s?`<p class="sum">${esc(pick(x,"s","ee"))}</p>`:""}
+ <div class="act"><a class="dbtn pri" href="${esc(x.u)}" target="_blank" rel="noopener">${t.open} ↗</a>${x.g?`<a class="dbtn" href="https://drive.google.com/uc?export=download&id=${x.g}" target="_blank" rel="noopener">⬇ ${t.get}</a>`:""}</div></article>`).join(""):`<div class="empty">${t.none}</div>`}
+function refresh(){buildFilters();render()}
+document.addEventListener("click",e=>{const c=e.target.closest(".chip");if(c){const s=S[c.dataset.k],v=c.dataset.v;s.has(v)?s.delete(v):s.add(v);refresh()}});
+$("q").oninput=e=>{S.q=e.target.value;render()};
+$("sort").onchange=e=>{S.sort=e.target.value;render()};
+$("reset").onclick=()=>{S.q="";$("q").value="";S.ty.clear();S.tg.clear();S.p.clear();S.y1=0;S.y2=9999;refresh()};
+$("dl").onclick=()=>{const q=v=>'"'+String(v).replace(/"/g,'""')+'"',r=filtered();
+ const en=L==="en",h=en?["Title","Author(s)","Publication date","Type","Topics","Publisher(s)","Link"]:["Titel","Auteur(s)","Publicatiedatum","Type","Onderwerpen","Uitgever(s)","Link"];
+ const csv="\ufeff"+[h,...r.map(x=>[pick(x,"t","te"),x.a,x.d,x.ty.map(lab).join(", "),x.tg.map(lab).join(", "),x.p.join(", "),x.u])].map(l=>l.map(q).join(";")).join("\r\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="verkeersstudies.csv";a.click()};
+window.onLang=l=>{L=l==="en"?"en":"nl";refresh()};
+refresh();
 })();
 </script>
 </body>
